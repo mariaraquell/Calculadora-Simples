@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Calculadora</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        .fundo{
+
+        .fundo {
             background-image: linear-gradient(45deg, black, pink, pink);
             height: 100vh;
             color: white;
@@ -26,7 +27,7 @@
             border-radius: 15px;
             padding: 15px;
         }
-        .botao{
+        .botao {
             width: 50px;
             height: 50px;
             font-size: 25px;
@@ -36,10 +37,12 @@
             border: none;
             color: #fff;
         }
-        .botao:hover{
+
+        .botao:hover {
             background-color: black;
         }
-        #resultado{
+
+        #resultado {
             background-color: white;
             width: 207px;
             height: 30px;
@@ -51,23 +54,24 @@
             overflow-x:auto;
             overflow-y: hidden;
         }
-       /* Barra de rolagem */
-       ::-webkit-scrollbar{
-           height: 5px;
-       }
-       /* Trilha (barra de progresso) da barra de rolagem */
-       ::-webkit-scrollbar-track {
-           background-color:gray;
-       }
-       /* Alça de rolagem arrastavel */
-       ::-webkit-scrollbar-thumb{
-           background-color: mediumvioletred;
-       }
-       ::-webkit-scrollbar-thumb:hover{
-           background-color: cyan;
-       }
 
-       }
+        /* Barra de rolagem */
+        ::-webkit-scrollbar{
+           height: 5px;
+        }
+
+        /* Trilha (barra de progresso) da barra de rolagem */
+        ::-webkit-scrollbar-track {
+            background-color:gray;
+        }
+
+        /* Alça de rolagem arrastavel */
+        ::-webkit-scrollbar-thumb{
+            background-color: mediumvioletred;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+            background-color: cyan;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +86,6 @@
                     <td><button class="botao" onclick="back()"><</button></td>
                     <td><button class="botao" onclick="insert('/')">/</button></td>
                     <td><button class="botao" onclick="insert('*')">X</button></td>
-            
                 </tr>
                 <td><button class="botao" onclick="insert('7')">7</button></td>
                 <td><button class="botao" onclick="insert('8')">8</button></td>
@@ -94,51 +97,50 @@
                     <td><button class="botao" onclick="insert('5')">5</button></td>
                     <td><button class="botao" onclick="insert('6')">6</button></td>
                     <td><button class="botao" onclick="insert('+')">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('1')">1</button></td>
+                    <td><button class="botao" onclick="insert('2')">2</button></td>
+                    <td><button class="botao" onclick="insert('3')">3</button></td>
+                    <td rowspan="2"><button class="botao" style="height: 106px" onclick= "calcular()">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" style="width: 106px" onclick="insert('0')">0</button></td>
+                    <td><button class="botao" onclick="insert('.')">.</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        let resultado = document.getElementById('resultado');
 
-                    <tr>
-                        <td><button class="botao" onclick="insert('1')">1</button></td>
-                        <td><button class="botao" onclick="insert('2')">2</button></td>
-                        <td><button class="botao" onclick="insert('3')">3</button></td>
-                        <td rowspan="2"><button class="botao" style="height: 106px" onclick= "calcular()">=</button></td>
+        function insert(num)
+        {
+            var numero = resultado.innerHTML;
+            resultado.innerHTML = numero + num;
+        }
 
-                        <tr>
-                            <td colspan="2"><button class="botao" style="width: 106px" onclick="insert('0')">0</button></td>
-                            <td><button class="botao" onclick="insert('.')">.</button></td>
+        function clean()
+        {
+            resultado.innerHTML = '';
+        }
 
-        
-        <div>   </table>
-    
-    
-    <div>
-        <script>
-            function insert(num)
-            {
-                var numero = document.getElementById('resultado').innerHTML;
-                document.getElementById('resultado').innerHTML = numero + num;
-            }
-            function clean()
-            {
-                document.getElementById('resultado').innerHTML = "";
-            }
-            function back()
-            {
-                var resultado =  document.getElementById('resultado').innerHTML;
-                document.getElementById('resultado').innerHTML = resultado.substring(0,resultado.length -1)
-            }
-            function calcular()
-            {
-                var resultado =  document.getElementById('resultado').innerHTML;
-                if(resultado)
-                {
-                    document.getElementById('resultado').innerHTML = eval(resultado);
-                }
-                else
-                {
-                    document.getElementById('resultado').innerHTML = "Nada..."
-                }
-            }
-        </script>
+        function back()
+        {
+            var back = resultado.innerHTML;
+            resultado.innerHTML = back.substring(0, resultado.length -1)
+        }
 
-    
+        function evil(fn) {
+            return new Function('return ' + fn)();
+        }
+
+        function calcular()
+        {
+            let calculo = document.getElementById('resultado').innerHTML;
+
+            resultado.innerHTML = (calculo) ? evil(calculo) : 'Nada...';
+        }
+    </script>
 </body>
 </html>
